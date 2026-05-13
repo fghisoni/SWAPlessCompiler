@@ -78,18 +78,17 @@ def draw_compiled_ops_pennylane(compiled_ops, debug, n_wires=None, decimals=3, s
                 if len(wires) != 2:
                     raise ValueError(f"CNOT should act on two wires, got {wires}.")
                 qp.CNOT(wires=wires)
-                # idx is NOT incremented for CNOT (matches original behaviour)
 
             else:
                 raise ValueError(f"Unsupported gate type: {gate_type}")
 
     # Reverse wire order so qubit n-1 is at the top
-    wire_order = list(range(n_wires))
-    wire_order.reverse()
-
-    # Draw directly using tape_mpl (returns fig, ax)
-    fig, ax = tape_mpl(tape, wire_order=wire_order, decimals=decimals)
-
+    if debug['unitary'] != 'C^nX':
+        wire_order = list(range(n_wires))
+        wire_order.reverse()
+        fig, ax = tape_mpl(tape, wire_order=wire_order, decimals=decimals)
+    else: 
+        fig, ax = tape_mpl(tape, wire_order=range(n_wires + 1), decimals=decimals)
     if show:
         plt.show()
     return fig, ax
