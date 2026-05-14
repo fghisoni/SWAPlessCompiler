@@ -8,7 +8,7 @@ from Scripts.Compiler import (
     single_qubit_depth,
     total_greedy_depth,
 )
-from Scripts.CnX_spanning_lines import generate_cnx_lhz_spanning_lines
+from Scripts.Toffoli_spanning_lines import generate_cnx_lhz_spanning_lines
 
 
 def swap_as_cnots(q1, q2):
